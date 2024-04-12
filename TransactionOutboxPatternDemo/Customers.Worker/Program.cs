@@ -1,7 +1,6 @@
 ﻿using Customers.Worker;
 using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -10,6 +9,7 @@ var builder = Host.CreateApplicationBuilder();
 builder.Services.AddDbContext<AppDbContext>(x =>
 {
     string connstring = "Server=localhost;Port=5432;Database=customerdb;User ID=sa;Password=password;";
+   
     x.UseNpgsql(connstring, opt =>
     {
         opt.EnableRetryOnFailure(5);
