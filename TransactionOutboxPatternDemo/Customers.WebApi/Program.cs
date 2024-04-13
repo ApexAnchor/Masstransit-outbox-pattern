@@ -25,6 +25,8 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddMassTransit(bus =>
     {
+        bus.SetKebabCaseEndpointNameFormatter();
+
         bus.AddEntityFrameworkOutbox<ApplicationDbContext>(options =>
         {
             options.QueryDelay = TimeSpan.FromSeconds(1);
@@ -41,7 +43,9 @@ var builder = WebApplication.CreateBuilder(args);
                 h.Username(settings.Username);
                 h.Password(settings.Password);
             });
-        });
+
+            configuration.ConfigureEndpoints(context);
+        });        
 
     });
 

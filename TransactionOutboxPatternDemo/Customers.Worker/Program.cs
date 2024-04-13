@@ -27,8 +27,8 @@ builder.Services.AddMassTransit(x =>
     x.SetKebabCaseEndpointNameFormatter();
 
     var assembly = typeof(Program).Assembly;
-
-    x.AddConsumer(typeof(CustomerCreatedConsumer));
+       
+    x.AddConsumer<CustomerCreatedConsumer>();
     x.AddActivities(assembly);   
 
     x.UsingRabbitMq((context, configuration) =>
@@ -38,6 +38,8 @@ builder.Services.AddMassTransit(x =>
             h.Username("guest");
             h.Password("guest");
         });
+
+        configuration.ConfigureEndpoints(context);
     });
 });
 

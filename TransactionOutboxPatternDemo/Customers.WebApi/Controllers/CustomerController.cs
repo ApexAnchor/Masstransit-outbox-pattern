@@ -26,7 +26,7 @@ public class CustomerController : ControllerBase
         {
             customer.CustomerId = Guid.NewGuid();
            
-            appDbContext.Customers.Add(customer);
+            await appDbContext.Customers.AddAsync(customer);
 
             var message = new CustomerCreated(customer.CustomerId, customer.CustomerName, customer.Email);
             
